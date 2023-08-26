@@ -23,9 +23,7 @@ public class ShopRepository {
      *
      * @param product — добавляемый товар
      */
-    public void add(Product product) {
-        products = addToArray(products, product);
-    }
+
 
     public Product[] findAll() {
         return products;
@@ -55,6 +53,15 @@ public class ShopRepository {
             return products;
         } else {
             throw new NotFoundException("Element with id: " + id + " not found");
+        }
+    }
+
+    public Product[] add(Product product) {
+        if (findById(product.getId()) == null) {
+            products = addToArray(products, product);
+            return products;
+        } else {
+            throw new AlreadyExistsException("Element with id: " + product.getId() + "already exists ");
         }
     }
 }
